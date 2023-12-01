@@ -1,0 +1,48 @@
+<div class="container">
+    <form class="example-form" [formGroup]="motorSearch">
+        <div class="search">
+            <mat-form-field class="example-full-width srh">
+                <mat-label>Search motor quotation </mat-label>
+                <input matInput placeholder="Search" formControlName="motor">
+            </mat-form-field>
+            <div class="example-button-row">
+                <button mat-raised-button (click)="onSearch()" color="primary">Search</button>
+            </div>
+            <div class="space_select">
+                <mat-form-field>
+                    <mat-label>Sort by date</mat-label>
+                    <mat-select formControlName="sort" (selectionChange)="onSortChange()">
+                        <mat-option value="asc">Asc</mat-option>
+                        <mat-option value="desc">Desc</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+    <div class="grid_view">
+        <div *ngFor="let quotation of motorQuotaions | paginate:{
+        itemsPerPage:pageSize,
+        currentPage:page,
+        totalItems:count}; let i=index">
+
+            <div class="cadre">
+                <h1><b>Description</b></h1>
+                <label><b>Quotation Number :</b> {{quotation.quotationNumber}}</label><br><br>
+                <label><b>Policy Owner :</b> {{quotation.policyOwner}}</label><br><br>
+                <label><b>Car Make :</b> {{quotation.carMake}}</label><br><br>
+                <label><b>Car Year of Make :</b> {{quotation.carYear}}</label><br><br>
+                <label><b>Quotation Status :</b> {{quotation.quotationStatus}}</label><br><br>
+                <label><b>Creation Date :</b> {{quotation.creationDate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onDataChange($event)"
+        >
+        </pagination-controls>
+    </div>
+</div>
